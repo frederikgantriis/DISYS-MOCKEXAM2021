@@ -1,5 +1,9 @@
 package main
 
+/*
+	THIS CLASS IS BASED ON CODE MADE IN HANDIN-5 (PEER-TO-PEER) WITH MHSI, SIBH & FRGM
+*/
+
 import (
 	"bufio"
 	"context"
@@ -16,10 +20,14 @@ import (
 	"google.golang.org/grpc"
 )
 
+var increment int
+
 func main() {
 	var ownPort int32
 	var f *os.File
 	var err error
+
+	increment = 0
 
 	// Check if ressources folder exists
 	_, ferr := os.Stat("ressources")
@@ -179,6 +187,7 @@ func (p *peer) ReqAccessToCS(ctx context.Context, req *p2p.Request) (*p2p.Reply,
 		continue
 	}
 	rep := &p2p.Reply{Lamport: p.lamport}
+	increment++
 	setLamportTimestamp(p, int(rep.Lamport))
 	return rep, nil
 }
@@ -211,7 +220,8 @@ func setLamportTimestamp(p *peer, incoming int) {
 }
 
 func criticalSection(p *peer) {
-	fmt.Printf("A Critical Hello World from %v\n", p.id)
+	fmt.Print("Increment has been called. Value: ", increment, "\n")
+	increment++
 	time.Sleep(3 * time.Second)
 }
 

@@ -1,3 +1,7 @@
+/*
+	THIS CLASS IS BASED ON CODE MADE IN HANDIN-5 (PEER-TO-PEER) WITH MHSI, SIBH & FRGM
+*/
+
 syntax = "proto3";
 
 package p2p;
